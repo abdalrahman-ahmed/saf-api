@@ -76,3 +76,5 @@ mongoose
   .catch((err) => {
     throw new Error(err);
   });
+
+export default app;
