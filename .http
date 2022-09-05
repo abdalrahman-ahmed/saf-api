@@ -1,0 +1,16 @@
+### GET Webinars
+GET {{host}}/webinars?page=1&limit=1
+Accept-Language: 'ar'
+
+
+### GET Programs
+GET {{host}}/programs?page=1&category=service&limit=1
+
+### GET One Program
+GET {{host}}/program/sndwq-altwhd-alwqfy
+
+### GET Events
+GET {{host}}/events
+
+### GET Event
+GET {{host}}/event/event

@@ -1,0 +1,45 @@
+{
+  "name": "saf-api",
+  "version": "1.0.0",
+  "description": "API backend for SAF Organization",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node ./build/index.js",
+    "dev": "nodemon src/index.ts",
+    "prod:start": "npm run build && node build/index.js",
+    "format": "npx prettier --write src/**/*ts",
+    "swagger": "tsoa spec"
+  },
+  "keywords": [
+    "saf",
+    "api"
+  ],
+  "author": "kareem fouad",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/i18next": "^13.0.0",
+    "@types/i18next-fs-backend": "^1.1.2",
+    "@types/mongoose": "^5.11.97",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^18.7.14",
+    "@types/swagger-ui-express": "^4.1.3",
+    "concurrently": "^7.3.0",
+    "prettier": "2.7.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "i18next": "^21.9.1",
+    "i18next-fs-backend": "^1.1.5",
+    "i18next-http-middleware": "^3.2.1",
+    "mongoose": "^6.5.4",
+    "morgan": "^1.10.0",
+    "swagger-ui-express": "^4.5.0",
+    "tsoa": "^4.1.2"
+  }
+}

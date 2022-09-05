@@ -1,0 +1,29 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "saf-api",
+		"version": "1.0.0",
+		"description": "API backend for SAF Organization",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "kareem fouad"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

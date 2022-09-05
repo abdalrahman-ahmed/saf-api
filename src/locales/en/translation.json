@@ -1,0 +1,10 @@
+{
+  "excludeLang": "ar",
+  "Success": {
+    "form": "Form Has been Submitted Successfully.",
+    "retrieve": "Items Have Been Retrieved Successfully 🥰."
+  },
+  "Error": {
+    "notFound": "Sorry, The Item You Are Looking For Isn't Found😐."
+  }
+}
