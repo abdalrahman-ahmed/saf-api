@@ -1,0 +1,437 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SAF API DEFINITIONS",
+    "version": "1.0.0",
+    "description":
+    "This is a REST API application made with For SAF. It retrieves data from SAF Organization.",
+    "contact": {
+      "name": "SAF",
+      "url": "https://saf.org"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "localhost:4400",
+  "basePath": "/api/v1",
+  "paths": {
+    "/programs": {
+      "get": {
+        "summary": "Get all the Programs",
+        "description": "Get all active Programs to the UI.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "description": "Category of the programs to retrieve.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "$ref": "#/definitions/pageParam"
+          },
+          {
+            "$ref": "#/definitions/limitParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/programsResponse"
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "$ref": "#/definitions/paginationDefinition"
+                }
+              }
+
+            }
+          }
+        }
+      }
+    },
+    "/program/{slug}": {
+      "get": {
+        "summary": "Get A Program",
+        "description": "Get One Active Program using program slug.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "Unique slug for each program"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "$ref": "#/definitions/programsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Program Not Found",
+            "schema": {
+              "$ref": "#/definitions/notFoundResponse"
+            }
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "summary": "Get all News",
+        "description": "Get all active News to the UI.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "tags",
+            "description": "tag of the programs to retrieve.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "$ref": "#/definitions/pageParam"
+          },
+          {
+            "$ref": "#/definitions/limitParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/newsResponse"
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "$ref": "#/definitions/paginationDefinition"
+                }
+              }
+
+            }
+          }
+        }
+      }
+    },
+    "/news/{slug}": {
+      "get": {
+        "summary": "Get A News",
+        "description": "Get One Active News using program slug.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "Unique slug for each News"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "$ref": "#/definitions/newsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News Not Found",
+            "schema": {
+              "$ref": "#/definitions/notFoundResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "successResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number",
+          "example": 200
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "programsResponse": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "ar" : {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "ar" : {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "shortDescription": {
+          "type": "object",
+          "properties": {
+            "ar" : {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "slug": {
+          "type": "string"
+        },
+        "hasSms":  {
+          "type": "boolean"
+        },
+        "toSms": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+          },
+        "amountNeeded": {
+          "type": "number"
+        },
+        "amountReceived": {
+          "type": "number"
+        },
+        "hasShares": {
+          "type": "boolean"
+        },
+        "sharesValue": {
+          "type": "number"
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "isProgram": {
+          "type": "boolean"
+        },
+        "sponsor": {
+          "type": "object"
+        },
+        "image": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "order": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      }
+    },
+    "newsResponse": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "ar" : {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "ar" : {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "shortDescription": {
+          "type": "object",
+          "properties": {
+            "ar" : {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "slug": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array"
+        },
+        "status": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      }
+    },
+    "InvalidResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number",
+          "example": 501
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "notFoundResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number",
+          "example": 404
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "limitParam": {
+      "in": "query",
+      "name": "limit",
+      "description": "limit of the data to retrieve.",
+      "required": false,
+      "default": 10,
+      "type": "number"
+    },
+    "pageParam": {
+      "in": "query",
+      "name": "page",
+      "description": "number of the page to retrieve data from.",
+      "required": false,
+      "default": 1,
+      "type": "number"
+    },
+    "paginationDefinition": {
+      "type": "object",
+      "properties": {
+          "currentPage": {
+            "type": "number",
+            "example": 1
+          },
+          "pages": {
+            "type": "number",
+            "example": 10
+          },
+          "hasNext": {
+            "type": "boolean",
+            "example": true
+          },
+          "nextPage": {
+            "type": "number",
+            "example": 2
+          },
+          "hasPrevious": {
+            "type": "boolean",
+            "example": false
+          },
+          "previousPage": {
+            "type": "number",
+            "example": 2
+          }
+      }
+    }
+  }
+}

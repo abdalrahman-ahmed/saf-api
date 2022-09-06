@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import {
+  getAllNews,
   getEvent,
-  getEvents,
+  getEvents, getNews,
   getProgram,
   getPrograms,
   getWebinar,
@@ -14,6 +15,11 @@ const router: Router = Router();
 // Programs Routes
 router.get('/programs', getPrograms);
 router.get('/program/:programSlug', getProgram);
+
+// News Routes
+router.get('/news', getAllNews);
+router.get('/news/:newsSlug', getNews);
+
 
 // Webinars Routes
 router.get('/webinars', getWebinars);

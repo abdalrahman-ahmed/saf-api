@@ -3,12 +3,14 @@ import i18next from 'i18next';
 import middleware from 'i18next-http-middleware';
 import Backend from 'i18next-fs-backend';
 import morgan from 'morgan';
+import cors from 'cors'
 import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
 
 import errorHandler from './middlewares/errorHandler';
 import config from './config';
 import routeHandler from './routes/index.routes';
+import * as fs from "fs";
 
 const PORT = config.port || 4400;
 const MONGO_URI: string = config.mongo || '';
@@ -27,19 +29,21 @@ i18next
 
 const app: Application = express();
 
+app.use(cors())
 app.use(middleware.handle(i18next));
 app.use(morgan('short'));
 app.use(express.json());
 app.use(express.static('public'));
 
+// Swagger API
+const swaggerFile = (process.cwd()+"/swagger/swagger.json")
+const swaggerData: any = fs.readFileSync(swaggerFile, 'utf8');
+const swaggerDocument = JSON.parse(swaggerData)
+
 app.use(
   '/docs',
   swaggerUi.serve,
-  swaggerUi.setup(undefined, {
-    swaggerOptions: {
-      url: '/swagger.json',
-    },
-  })
+  swaggerUi.setup(swaggerDocument)
 );
 
 app.get('/', (req: Request, res: Response) => {

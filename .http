@@ -14,3 +14,10 @@ GET {{host}}/events
 
 ### GET Event
 GET {{host}}/event/event
+
+### GET News
+GET {{host}}/news
+
+### GET News
+GET {{host}}/news/ndwh-alahkam
+Accept-Language: 'en'
