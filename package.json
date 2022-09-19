@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "build": "tsc && cp -rf ./src/locales ./build",
     "start": "node ./build/index.js",
     "dev": "nodemon src/index.ts",
     "prod:start": "npm run build && node build/index.js",
@@ -22,6 +22,7 @@
     "@types/express": "^4.17.13",
     "@types/i18next": "^13.0.0",
     "@types/i18next-fs-backend": "^1.1.2",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.7.14",
@@ -33,12 +34,14 @@
     "typescript": "^4.8.2"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "i18next": "^21.9.1",
     "i18next-fs-backend": "^1.1.5",
     "i18next-http-middleware": "^3.2.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.4",
     "morgan": "^1.10.0",
     "swagger-jsdoc": "^6.2.5",

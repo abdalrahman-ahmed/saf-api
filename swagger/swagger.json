@@ -13,7 +13,7 @@
   "schemes": [
     "http"
   ],
-  "host": "localhost:4400",
+  "host": "34.220.39.187:4400",
   "basePath": "/api/v1",
   "paths": {
     "/programs": {
@@ -62,7 +62,6 @@
                   "$ref": "#/definitions/paginationDefinition"
                 }
               }
-
             }
           }
         }
@@ -203,6 +202,211 @@
             "description": "News Not Found",
             "schema": {
               "$ref": "#/definitions/notFoundResponse"
+            }
+          }
+        }
+      }
+    },
+    "/webinars": {
+      "get": {
+        "summary": "Get all the Webinars",
+        "description": "Get all active Webinars to the UI.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/definitions/pageParam"
+          },
+          {
+            "$ref": "#/definitions/limitParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/webinarResponse"
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "$ref": "#/definitions/paginationDefinition"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/webinar/{slug}": {
+      "get": {
+        "summary": "Get A Webinar",
+        "description": "Get One Active Webinar using Webinar slug.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "Unique slug for each Webinar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "$ref": "#/definitions/webinarResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News Not Found",
+            "schema": {
+              "$ref": "#/definitions/notFoundResponse"
+            }
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "summary": "Get all the Events",
+        "description": "Get all active Events to the UI.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/definitions/pageParam"
+          },
+          {
+            "$ref": "#/definitions/limitParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/eventResponse"
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "$ref": "#/definitions/paginationDefinition"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event/{slug}": {
+      "get": {
+        "summary": "Get An Event",
+        "description": "Get One Active Event using Event slug.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "Unique slug for each Event"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "$ref": "#/definitions/eventResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News Not Found",
+            "schema": {
+              "$ref": "#/definitions/notFoundResponse"
+            }
+          }
+        }
+      }
+    },
+    "/branches": {
+      "get": {
+        "summary": "Get all the Branches",
+        "description": "Get all active Branches to the UI.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "$ref": "#/definitions/branchResponse"
+                }
+              }
             }
           }
         }
@@ -358,6 +562,181 @@
         },
         "status": {
           "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      }
+    },
+    "webinarResponse": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "ar" : {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "ar" : {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "slug": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "default": "active"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      }
+    },
+    "branchResponse": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "ar": {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "ar": {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "string"
+            },
+            "lng": {
+              "type": "string"
+            }
+          }
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "number"
+        },
+        "bank": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "default": "active"
+        },
+        "image": {
+          "type": "string"
+        },
+        "order": {
+          "type": "number"
+        }
+      }
+    },
+    "eventResponse": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "ar" : {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "ar" : {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "shortDescription": {
+          "type": "object",
+          "properties": {
+            "ar" : {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "slug": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "default": "active"
         },
         "createdAt": {
           "type": "string"

@@ -12,7 +12,7 @@ interface Pagination {
 export default (
   page: number,
   totalItems: number,
-  itemsPerPage: number = ITEMS_PER_PAGE
+  itemsPerPage: number = 10
 ): Pagination => {
   return {
     currentPage: page,

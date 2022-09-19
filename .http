@@ -4,10 +4,10 @@ Accept-Language: 'ar'
 
 
 ### GET Programs
-GET {{host}}/programs?page=1&category=service&limit=1
+GET {{host}}/programs?page=1
 
 ### GET One Program
-GET {{host}}/program/sndwq-altwhd-alwqfy
+GET {{host}}/program/psychological-guidance-program
 
 ### GET Events
 GET {{host}}/events
@@ -21,3 +21,13 @@ GET {{host}}/news
 ### GET News
 GET {{host}}/news/ndwh-alahkam
 Accept-Language: 'en'
+
+### GET Branches
+GET {{host}}/branches
+
+### GET Publication
+GET {{host}}/publications?page=1&limit=5&category=journal
+
+
+### GET Team Members
+GET {{host}}/team/management?sort=-1

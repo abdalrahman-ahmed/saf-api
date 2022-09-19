@@ -3,6 +3,7 @@ import paginationHandler, {
   ITEMS_PER_PAGE,
 } from '../../utils/paginationHandler';
 import Program from '../../models/program';
+import Sponsor from "../../models/sponsor";
 
 interface Filter {
   status: 'active' | 'inactive';
@@ -19,7 +20,6 @@ export const getPrograms = async (
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || ITEMS_PER_PAGE;
   const category = req.query.category || undefined;
-  const EX_LANGUAGE = req.t('excludeLang');
   try {
     const filter: Filter = {
       status: 'active',
@@ -33,11 +33,6 @@ export const getPrograms = async (
     const programs = await Program.find(filter)
       .skip((page - 1) * limit)
       .limit(limit)
-      .select({
-        title: { [EX_LANGUAGE]: 0 },
-        description: { [EX_LANGUAGE]: 0 },
-        shortDescription: { [EX_LANGUAGE]: 0 },
-      });
     return res.status(200).json({
       status: 200,
       message: req.t('Success.retrieve'),
@@ -55,16 +50,12 @@ export const getProgram = async (
   next: NextFunction
 ) => {
   try {
-    const EX_LANGUAGE = req.t('excludeLang');
     const slug = req.params.programSlug;
     const program = await Program.findOne({
       slug: slug,
       status: 'active',
-    }).select({
-      title: { [EX_LANGUAGE]: 0 },
-      description: { [EX_LANGUAGE]: 0 },
-      shortDescription: { [EX_LANGUAGE]: 0 },
-    });
+    })
+        .populate('sponsor', 'name url image type', Sponsor)
     if (!program) {
       return res
         .status(404)

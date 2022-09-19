@@ -11,7 +11,6 @@ export const getEvents = async (
 ): Promise<Response | void> => {
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || ITEMS_PER_PAGE;
-  const EX_LANGUAGE = req.t('excludeLang');
   try {
     const totalItems = await Event.find({
       status: 'active',
@@ -20,11 +19,6 @@ export const getEvents = async (
     const events = await Event.find({ status: 'active' })
       .skip((page - 1) * limit)
       .limit(limit)
-      .select({
-        title: { [EX_LANGUAGE]: 0 },
-        description: { [EX_LANGUAGE]: 0 },
-        shortDescription: { [EX_LANGUAGE]: 0 },
-      });
     return res.status(200).json({
       status: 200,
       message: req.t('Success.retrieve'),
@@ -41,17 +35,12 @@ export const getEvent = async (
   res: Response,
   next: NextFunction
 ) => {
-  const EX_LANGUAGE = req.t('excludeLang');
   const slug = req.params.eventSlug;
   try {
     const event = await Event.findOne({
       slug: slug,
       status: 'active',
-    }).select({
-      title: { [EX_LANGUAGE]: 0 },
-      description: { [EX_LANGUAGE]: 0 },
-      shortDescription: { [EX_LANGUAGE]: 0 },
-    });
+    })
     if (!event) {
       return res
         .status(404)

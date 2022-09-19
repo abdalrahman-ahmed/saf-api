@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import {
-  getAllNews,
+  getAllNews, getBranches,
   getEvent,
   getEvents, getNews,
   getProgram,
-  getPrograms,
+  getPrograms, getPublication,
   getWebinar,
   getWebinars,
   postContact,
+  getTeam
 } from '../../controllers';
 
 const router: Router = Router();
@@ -29,5 +30,14 @@ router.post('/contact', postContact);
 // Events Routes
 router.get('/events', getEvents);
 router.get('/event/:eventSlug', getEvent);
+
+// Team Route
+router.get("/team/:category", getTeam)
+
+// Branches Route
+router.get("/branches", getBranches)
+
+// Publications Route
+router.get("/publications", getPublication)
 
 export default router;

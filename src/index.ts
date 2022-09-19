@@ -1,3 +1,4 @@
+import {join} from 'path';
 import express, { Application, Request, Response } from 'express';
 import i18next from 'i18next';
 import middleware from 'i18next-http-middleware';
@@ -22,7 +23,7 @@ i18next
   .init({
     supportedLngs: ['ar', 'en'],
     backend: {
-      loadPath: './src/locales/{{lng}}/translation.json',
+      loadPath: join(__dirname, './locales/{{lng}}/translation.json'),
     },
     fallbackLng: 'ar',
   });
@@ -36,7 +37,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Swagger API
-const swaggerFile = (process.cwd()+"/swagger/swagger.json")
+const swaggerFile = join(__dirname, "..", "./swagger/swagger.json")
 const swaggerData: any = fs.readFileSync(swaggerFile, 'utf8');
 const swaggerDocument = JSON.parse(swaggerData)
 
