@@ -3,6 +3,7 @@ import paginationHandler, {
   ITEMS_PER_PAGE,
 } from '../../utils/paginationHandler';
 import Event from '../../models/event';
+import {StatusCodes} from "../../types/statusCodes";
 
 export const getEvents = async (
   req: Request,
@@ -19,8 +20,8 @@ export const getEvents = async (
     const events = await Event.find({ status: 'active' })
       .skip((page - 1) * limit)
       .limit(limit)
-    return res.status(200).json({
-      status: 200,
+    return res.status(StatusCodes.success).json({
+      status: StatusCodes.success,
       message: req.t('Success.retrieve'),
       data: events,
       pagination: pagination,
@@ -43,12 +44,12 @@ export const getEvent = async (
     })
     if (!event) {
       return res
-        .status(404)
-        .json({ status: 404, message: req.t('Error.notFound') });
+        .status(StatusCodes.notFound)
+        .json({ status: StatusCodes.notFound, message: req.t('Error.notFound') });
     }
     return res
-      .status(200)
-      .json({ status: 200, message: req.t('Success.retrieve'), data: event });
+      .status(StatusCodes.success)
+      .json({ status: StatusCodes.success, message: req.t('Success.retrieve'), data: event });
   } catch (error) {
     next(error);
   }

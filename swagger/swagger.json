@@ -383,6 +383,56 @@
         }
       }
     },
+    "/team/{category}": {
+      "get": {
+        "summary": "Get All Members of SAF Team.",
+        "description": "Get all the members of SAF team according to the category defined.",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "type": "string",
+            "enum": ["management", "committees", "honor", "team"],
+            "required": true,
+            "description": "Category by which team members will be fetched"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "How to sort members according to order predefined by SAF.",
+            "enum": ["asc", "desc", "ascending", "descending", 1, -1],
+            "default": "asc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "$ref": "#/definitions/teamResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News Not Found",
+            "schema": {
+              "$ref": "#/definitions/notFoundResponse"
+            }
+          }
+        }
+      }
+    },
     "/branches": {
       "get": {
         "summary": "Get all the Branches",
@@ -405,6 +455,276 @@
                 },
                 "data": {
                   "$ref": "#/definitions/branchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/videos": {
+      "get": {
+        "summary": "Get All Videos",
+        "description": "Get All Videos can be viewed in videos page",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "$ref": "#/definitions/videosResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/videos/featured": {
+      "get": {
+        "summary": "Get featured Videos only",
+        "description": "Get featured Videos can be viewed in home page",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "$ref": "#/definitions/videosResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/versions": {
+      "get": {
+        "summary": "Get All versions published by SAF",
+        "description": "This endpoint returns The versions SAF publish and have publications inside",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "object",
+                      "properties": {
+                        "ar": {
+                          "type": "string"
+                        },
+                        "en": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "image": {
+                      "type": "string"
+                    },
+                    "slug": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "default": "active"
+                    },
+                    "order": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/versions/{slug}": {
+      "get": {
+        "summary": "Get All Publications of SAF",
+        "description": "Get All the publications inside single version",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "$ref": "#/definitions/pageParam"
+          },
+          {
+            "$ref": "#/definitions/limitParam"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+          "type": "string",
+          "description": "Provide Slug you get from '/versions' endpoint or use 'docs' to get documents of SAF",
+          "required": true
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "object",
+                      "properties": {
+                        "ar": {
+                          "type": "string"
+                        },
+                        "en": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "image": {
+                      "type": "string"
+                    },
+                    "parent": {
+                      "type": "string"
+                    },
+                    "file": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "default": "active"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contact": {
+      "post": {
+        "summary": "Send Contact Form Data",
+        "description": "This endpoint accepts Post request from Contact form",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "email",
+            "in": "body",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "phone",
+            "in": "body",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "subject",
+            "in": "body",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "message",
+            "in": "body",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "default": 201
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Errors",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "default": 422
+                },
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "location": {
+                        "type": "string",
+                        "example": "body"
+                      },
+                      "msg": {
+                        "type": "string",
+                        "example": "Not valid input."
+                      },
+                      "param": {
+                        "type": "string",
+                        "example": "email"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -620,6 +940,67 @@
         }
       }
     },
+    "teamResponse": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name":  {
+          "type": "object",
+          "properties": {
+            "ar":  {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "position": {
+          "type": "object",
+          "properties": {
+            "ar":  {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "image": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["management", "committees", "honor", "team"]
+        },
+        "committee": {
+          "type": "string",
+          "enum": ["social", "scientific", "financial", "media", "audit", "governance"]
+        },
+        "sector": {
+          "type": "string",
+          "enum": ["general",
+            "financial",
+            "services",
+            "riyadh",
+            "dammam",
+            "kharj",
+            "dawadmi",
+            "abha"]
+        },
+        "status":  {
+          "type": "string"
+        },
+        "order": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      }
+    },
     "branchResponse": {
       "type": "object",
       "properties": {
@@ -740,6 +1121,41 @@
         },
         "createdAt": {
           "type": "string"
+        }
+      }
+    },
+    "videosResponse": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "object",
+          "properties": {
+            "ar": {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "image": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "default": "active"
+        },
+        "order": {
+          "type": "number"
         }
       }
     },

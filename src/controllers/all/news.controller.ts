@@ -3,6 +3,7 @@ import paginationHandler, {
   ITEMS_PER_PAGE,
 } from '../../utils/paginationHandler';
 import News from '../../models/news';
+import {StatusCodes} from "../../types/statusCodes";
 
 export const getAllNews = async (
   req: Request,
@@ -22,8 +23,8 @@ export const getAllNews = async (
     const allNews = await News.find(filter)
       .skip((page - 1) * limit)
       .limit(limit)
-    return res.status(200).json({
-      status: 200,
+    return res.status(StatusCodes.success).json({
+      status: StatusCodes.success,
       message: req.t('Success.retrieve'),
       data: allNews,
       pagination: pagination,
@@ -41,9 +42,9 @@ export const getNews = async (req: Request, res: Response, next: NextFunction) =
       slug: slug
     })
     if(!news) {
-      return res.status(404).json({ status: 404, message: req.t('Error.notFound') });
+      return res.status(StatusCodes.notFound).json({ status: StatusCodes.notFound, message: req.t('Error.notFound') });
     }
-    return res.status(200).json({ status: 200, message: req.t('Success.retrieve'), data: news });
+    return res.status(StatusCodes.success).json({ status: StatusCodes.success, message: req.t('Success.retrieve'), data: news });
   }
   catch (error) {
     next(error)

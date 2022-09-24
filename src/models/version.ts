@@ -1,17 +1,17 @@
-import { model, Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-interface Publication {
+interface Version {
   title: {
     ar: string;
     en: string;
   };
-  file: string;
   image: string;
-  parent: string;
+  slug: string;
   status: 'active' | 'inactive';
+  order: number;
 }
 
-const publicationSchema = new Schema<Publication>(
+const versionSchema = new Schema<Version>(
   {
     title: {
       ar: {
@@ -23,22 +23,23 @@ const publicationSchema = new Schema<Publication>(
         required: true,
       },
     },
-    file: {
+    image: {
       type: String,
       required: true,
     },
-    image: {
+    slug: {
       type: String,
-      default: '/image/resources/docs-thumb.jpg',
-    },
-    parent: {
-      type: String,
-      required: false,
+      required: true,
     },
     status: {
       type: String,
-      default: 'inactive',
       enum: ['active', 'inactive'],
+      default: 'active',
+    },
+    order: {
+      type: Number,
+      required: true,
+      default: 0,
     },
   },
   {
@@ -46,4 +47,4 @@ const publicationSchema = new Schema<Publication>(
   }
 );
 
-export default model<Publication>('Publication', publicationSchema);
+export default model<Version>('Version', versionSchema);

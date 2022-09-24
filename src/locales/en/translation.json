@@ -5,6 +5,13 @@
     "retrieve": "Items Have Been Retrieved Successfully ✔."
   },
   "Error": {
-    "notFound": "Sorry, The Item You Are Looking For Isn't Found😐."
+    "notFound": "Sorry, The Item You Are Looking For Isn't Found😐.",
+    "invalidInputs": "Invalid Inputs entered.",
+    "contact": {
+      "email": "Invalid E-mail Input.",
+      "name": "Invalid Name Input.",
+      "subject": "Invalid Subject Input.",
+      "message": "Invalid Message Input"
+    }
   }
 }

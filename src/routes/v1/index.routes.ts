@@ -1,14 +1,18 @@
 import { Router } from 'express';
+import {body} from "express-validator";
 import {
   getAllNews, getBranches,
   getEvent,
   getEvents, getNews,
   getProgram,
-  getPrograms, getPublication,
+  getPrograms,
   getWebinar,
   getWebinars,
   postContact,
-  getTeam
+  getTeam,
+  getVideos,
+  getFeatured,
+  getVersions, getVersion
 } from '../../controllers';
 
 const router: Router = Router();
@@ -25,7 +29,6 @@ router.get('/news/:newsSlug', getNews);
 // Webinars Routes
 router.get('/webinars', getWebinars);
 router.get('/webinars/:webinarSlug', getWebinar);
-router.post('/contact', postContact);
 
 // Events Routes
 router.get('/events', getEvents);
@@ -37,7 +40,26 @@ router.get("/team/:category", getTeam)
 // Branches Route
 router.get("/branches", getBranches)
 
-// Publications Route
-router.get("/publications", getPublication)
+router.get("/videos", getVideos)
+
+router.get("/videos/featured", getFeatured)
+
+router.get("/versions", getVersions)
+
+router.get("/versions/:parent", getVersion)
+
+router.post('/contact',[body("name").trim().notEmpty().withMessage((value, {req}) => {
+  return req.t("Error.contact.name")
+}),
+  body("email").normalizeEmail().isEmail().withMessage((value, {req}) => {
+    return req.t("Error.contact.email")
+  }),
+body("subject").trim().isLength({min: 4}).withMessage((value, {req}) => {
+  return req.t("Error.contact.subject")
+}),
+body("message").trim().isLength({min: 10}).withMessage((value, {req}) => {
+  return req.t("Error.contact.message")
+})
+], postContact);
 
 export default router;

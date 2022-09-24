@@ -4,6 +4,7 @@ import paginationHandler, {
 } from '../../utils/paginationHandler';
 import Program from '../../models/program';
 import Sponsor from "../../models/sponsor";
+import {StatusCodes} from "../../types/statusCodes";
 
 interface Filter {
   status: 'active' | 'inactive';
@@ -33,8 +34,8 @@ export const getPrograms = async (
     const programs = await Program.find(filter)
       .skip((page - 1) * limit)
       .limit(limit)
-    return res.status(200).json({
-      status: 200,
+    return res.status(StatusCodes.success).json({
+      status: StatusCodes.success,
       message: req.t('Success.retrieve'),
       data: programs,
       pagination: pagination,
@@ -58,12 +59,12 @@ export const getProgram = async (
         .populate('sponsor', 'name url image type', Sponsor)
     if (!program) {
       return res
-        .status(404)
-        .json({ status: 404, message: req.t('Error.notFound') });
+        .status(StatusCodes.notFound)
+        .json({ status: StatusCodes.notFound, message: req.t('Error.notFound') });
     }
     return res
-      .status(200)
-      .json({ status: 200, message: req.t('Success.retrieve'), data: program });
+      .status(StatusCodes.success)
+      .json({ status: StatusCodes.success, message: req.t('Success.retrieve'), data: program });
   } catch (error) {
     next(error);
   }

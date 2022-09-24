@@ -6,7 +6,6 @@ interface Contact {
   subject: string;
   phone: string;
   message: string;
-  avatar?: string;
 }
 
 const contactFormSchema = new Schema<Contact>(

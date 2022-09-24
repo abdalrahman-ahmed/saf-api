@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import Branch from '../../models/branch';
+import {StatusCodes} from "../../types/statusCodes";
 
 export const getBranches = async (
   req: Request,
@@ -8,8 +9,8 @@ export const getBranches = async (
 ) => {
   try {
     const branches = await Branch.find({ status: 'active' })
-    return res.status(200).json({
-      status: 200,
+    return res.status(StatusCodes.success).json({
+      status: StatusCodes.success,
       message: req.t('Success.retrieve'),
       data: branches,
     });

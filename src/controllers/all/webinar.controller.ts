@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import paginationHandler, {
   ITEMS_PER_PAGE,
 } from '../../utils/paginationHandler';
+import {StatusCodes} from "../../types/statusCodes";
 
 export const getWebinars = async (
   req: Request,
@@ -19,8 +20,8 @@ export const getWebinars = async (
     const webinars = await Webinar.find({ status: 'active' })
       .skip((page - 1) * limit)
       .limit(limit)
-    return res.status(200).json({
-      status: 200,
+    return res.status(StatusCodes.success).json({
+      status: StatusCodes.success,
       message: req.t('Success.retrieve'),
       data: webinars,
       pagination: pagination,
@@ -43,12 +44,12 @@ export const getWebinar = async (
     })
     if (!webinar) {
       return res
-        .status(404)
-        .json({ status: 404, message: req.t('Error.notFound') });
+        .status(StatusCodes.notFound)
+        .json({ status: StatusCodes.notFound, message: req.t('Error.notFound') });
     }
     return res
-      .status(200)
-      .json({ status: 200, message: req.t('Success.retrieve'), data: webinar });
+      .status(StatusCodes.success)
+      .json({ status: StatusCodes.success, message: req.t('Success.retrieve'), data: webinar });
   } catch (error) {
     next(error);
   }

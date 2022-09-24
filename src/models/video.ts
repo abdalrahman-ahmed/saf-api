@@ -1,17 +1,18 @@
-import { model, Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-interface Publication {
+interface Video {
   title: {
     ar: string;
     en: string;
   };
-  file: string;
+  url: string;
   image: string;
-  parent: string;
   status: 'active' | 'inactive';
+  featured: boolean;
+  order: number;
 }
 
-const publicationSchema = new Schema<Publication>(
+const videoSchema = new Schema<Video>(
   {
     title: {
       ar: {
@@ -23,22 +24,25 @@ const publicationSchema = new Schema<Publication>(
         required: true,
       },
     },
-    file: {
+    url: {
       type: String,
       required: true,
     },
     image: {
       type: String,
-      default: '/image/resources/docs-thumb.jpg',
-    },
-    parent: {
-      type: String,
-      required: false,
+      default: '/image/resources/saf.jpg',
     },
     status: {
       type: String,
-      default: 'inactive',
-      enum: ['active', 'inactive'],
+      default: 'active',
+    },
+    featured: {
+      type: Boolean,
+      default: false,
+    },
+    order: {
+      type: Number,
+      required: true,
     },
   },
   {
@@ -46,4 +50,4 @@ const publicationSchema = new Schema<Publication>(
   }
 );
 
-export default model<Publication>('Publication', publicationSchema);
+export default model<Video>('Video', videoSchema);
